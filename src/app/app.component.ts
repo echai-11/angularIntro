@@ -8,3 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'conFusion';
 }
+
+//properties, methods defined in component can be retrieved in template
+//event-binding: events in template can be bound to methods defined in component
