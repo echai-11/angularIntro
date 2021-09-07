@@ -49,7 +49,74 @@
             <p matLine>{{ comment.rating }} Stars</p>
             <p matLine>-- {{ comment.author }} {{ comment.date | date }}</p>
           </mat-list-item>
+          <!-- Comment Preview -->
+          <mat-list-item>
+            <p matLine *ngIf="feedbackForm.value.comment">
+              {{ feedbackForm.value.comment }}
+            </p>
+            <p
+              matLine
+              *ngIf="feedbackForm.value.rating && feedbackForm.value.author"
+            >
+              {{ feedbackForm.value.rating }} Stars
+            </p>
+            <p matLine *ngIf="feedbackForm.value.author">
+              -- {{ feedbackForm.value.author }}
+            </p>
+          </mat-list-item>
         </mat-list>
+        <!-- ADD COMMENT -->
+        <!-- <p>{{ feedbackForm.value | json }}</p> -->
+        <form
+          novalidate
+          [formGroup]="feedbackForm"
+          #fform="ngForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <p>
+            <mat-form-field>
+              <input
+                matInput
+                formControlName="author"
+                placeholder="Name"
+                type="text"
+                required
+              />
+              <mat-error *ngIf="formErrors.author">{{
+                formErrors.author
+              }}</mat-error>
+            </mat-form-field>
+          </p>
+          <mat-slider
+            formControlName="rating"
+            min="1"
+            max="5"
+            thumbLabel
+            tickInterval="1"
+          ></mat-slider>
+          <p>
+            <mat-form-field class="full-width">
+              <textarea
+                matInput
+                formControlName="comment"
+                placeholder="Comment"
+                rows="5"
+              ></textarea>
+
+              <mat-error *ngIf="formErrors.comment">{{
+                formErrors.comment
+              }}</mat-error>
+            </mat-form-field>
+          </p>
+          <button
+            type="submit"
+            mat-button
+            class="background-primary text-floral-white"
+            [disabled]="feedbackForm.invalid"
+          >
+            Submit
+          </button>
+        </form>
       </mat-card-content>
     </mat-card>
   </div>
